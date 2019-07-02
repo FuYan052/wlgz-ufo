@@ -5,6 +5,12 @@ import App from './App'
 import router from './router'
 
 Vue.config.productionTip = false
+// 设置浏览器标题
+Vue.directive('title', {
+  inserted: function (el, binding) {
+    document.title = el.dataset.title
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

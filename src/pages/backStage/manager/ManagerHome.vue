@@ -1,18 +1,19 @@
 <template>
-  <div class="home">
-    <h1>前台首页</h1>
+  <!-- 项目经理首页 -->
+  <div class="managerHome">
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: 'ManagerHome'
 }
 </script>
 
 <style lang="scss" scoped>
-  .home{
-
+  .managerHome{
+    
   }
 </style>
 
