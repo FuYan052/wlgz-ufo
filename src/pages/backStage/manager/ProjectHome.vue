@@ -13,6 +13,10 @@
         <h3 @click="projectOverview">项目概况</h3>
         <h3 @click="teamInformation">班组信息</h3>
       </li>
+      <li>
+        <h3 @click="material">查看材料</h3>
+        <h3 @click="toDoList">待办事项</h3>
+      </li>
     </ul>
   </div>
 </template>
@@ -49,6 +53,16 @@ export default {
     teamInformation() {
       this.$router.push({
         path: '/project/teamInformation'
+      })
+    },
+    material() {
+      this.$router.push({
+        path: '/project/material'
+      })
+    },
+    toDoList() {
+      this.$router.push({
+        path: '/project/toDoList'
       })
     },
   }

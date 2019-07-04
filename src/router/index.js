@@ -16,6 +16,11 @@ import AddWeeklyReport from '@/pages/backStage/manager/AddWeeklyReport'
 import CheckWeeklyReport from '@/pages/backStage/manager/CheckWeeklyReport'
 import ProjectOverview from '@/pages/backStage/manager/ProjectOverview'
 import TeamInformation from '@/pages/backStage/manager/TeamInformation'
+import Material from '@/pages/backStage/manager/Material'
+import ToDoList from '@/pages/backStage/manager/ToDoList'
+import DesignerHome from '@/pages/backStage/designer/DesignerHome'
+import Project from '@/pages/backStage/designer/Project'
+import AddState from '@/pages/backStage/designer/AddState'
 
 Vue.use(Router)
 
@@ -99,6 +104,31 @@ export default new Router({
       path: '/project/teamInformation',
       name: 'TeamInformation',
       component: TeamInformation
+    },
+    {
+      path: '/project/material',
+      name: 'Material',
+      component: Material
+    },
+    {
+      path: '/project/toDoList',
+      name: 'ToDoList',
+      component: ToDoList
+    },
+    {
+      path: '/designerHome',
+      name: 'DesignerHome',
+      component: DesignerHome
+    },
+    {
+      path: '/designerProject',
+      name: 'Project',
+      component: Project
+    },
+    {
+      path: '/designerProject/addState',
+      name: 'AddState',
+      component: AddState
     },
   ]
 })
