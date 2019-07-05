@@ -65,8 +65,7 @@ export default {
 <style lang="scss" scoped>
   .teamInformation{
     width: 100%;
-    // height: 100vh;
-    height: auto;
+    min-height: 100vh;
     background: #e7e7e7;
     padding-bottom: 25px;
     .wrap1{

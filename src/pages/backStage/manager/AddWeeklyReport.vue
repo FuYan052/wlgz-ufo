@@ -64,7 +64,7 @@ export default {
 <style lang="scss" scoped>
   .addWeeklyReport{
     width: 100%;
-    height: auto;
+    min-height: auto;
     background: #e7e7e7;
     padding: 0 20px;
     padding-bottom: 100px;
