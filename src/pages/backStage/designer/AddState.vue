@@ -20,8 +20,18 @@
       </div>
       <div class="addBtn">
         <span class="addIcon"></span>
-        <span class="addBtnText">添加状态</span>
+        <span class="addBtnText" @click="centerDialogVisible = true">添加状态</span>
       </div>
+      <el-dialog
+        :visible.sync="centerDialogVisible"
+        width="30%"
+        center>
+        <!-- 下拉选择组件 -->
+        <select-state v-on:childBySelect="childBySelect"></select-state>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
     <div class="stateItem" :class="{borderBottom : stateList2.length > 0}">
       <h5 class="title" :class="{redBorder : stateList2.length > 0}">
@@ -42,8 +52,18 @@
       </div>
       <div class="addBtn">
         <span class="addIcon"></span>
-        <span class="addBtnText">添加状态</span>
+        <span class="addBtnText" @click="centerDialogVisible = true">添加状态</span>
       </div>
+      <el-dialog
+        :visible.sync="centerDialogVisible"
+        width="30%"
+        center>
+        <!-- 下拉选择组件 -->
+        <select-state v-on:childBySelect="childBySelect"></select-state>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
     <div class="stateItem" :class="{borderBottom : stateList3.length > 0}">
       <h5 class="title" :class="{redBorder : stateList3.length > 0}">
@@ -64,8 +84,18 @@
       </div>
       <div class="addBtn">
         <span class="addIcon"></span>
-        <span class="addBtnText">添加状态</span>
+        <span class="addBtnText" @click="centerDialogVisible = true">添加状态</span>
       </div>
+      <el-dialog
+        :visible.sync="centerDialogVisible"
+        width="30%"
+        center>
+        <!-- 下拉选择组件 -->
+        <select-state v-on:childBySelect="childBySelect"></select-state>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
     <div class="stateItem" :class="{borderBottom : stateList4.length > 0}">
       <h5 class="title" :class="{redBorder : stateList4.length > 0}">
@@ -86,26 +116,41 @@
       </div>
       <div class="addBtn">
         <span class="addIcon"></span>
-        <span class="addBtnText">添加状态</span>
+        <span class="addBtnText" @click="centerDialogVisible = true">添加状态</span>
       </div>
+      <el-dialog
+        :visible.sync="centerDialogVisible"
+        width="30%"
+        center>
+        <!-- 下拉选择组件 -->
+        <select-state v-on:childBySelect="childBySelect"></select-state>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
+import SelectState from '../../../components/SelectState.vue'
 export default {
   name: 'AddState',
+  components: {
+    SelectState
+  },
   data() {
     return {
       stateList1: [],
       stateList2: [],
       stateList3: [],
       stateList4: [],
+      centerDialogVisible: false,
+      stateResult: '' //下拉选择后提交的结果
     }
   },
   created() {
-
-    console.log(new Date())
+    // console.log(new Date())
 
     this.stateList1 = [
       {
@@ -150,6 +195,15 @@ export default {
         resultState: true
       },
     ]
+  },
+  methods: {
+    childBySelect(childBySelect) {
+      this.stateResult = childBySelect
+    },
+    submit() {
+      this.centerDialogVisible = false
+      console.log(this.stateResult)
+    }
   }
 }
 </script>
@@ -260,5 +314,31 @@ export default {
       border-top: none;
     }
   }
+</style>
+<style>
+.el-popper[x-placement^=bottom] .popper__arrow:after{
+  content: ''
+}
+.addState .el-dialog{
+  width: 525px !important;
+  height: 495px !important;
+  margin-top: 185px !important;
+  padding: 0 40px;
+}
+.el-dialog__headerbtn{
+  font-size: 38px;
+}
+.el-dialog__body{
+  height: 305px;
+  margin-top: 20px;
+}
+.el-button--primary{
+  background: #00ff00;
+  border-color: #00ff00;
+}
+.el-button--primary:hover{
+  background: #00ff00;
+  border-color: #00ff00;
+}
 </style>
 

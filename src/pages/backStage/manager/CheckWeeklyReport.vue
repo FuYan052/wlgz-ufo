@@ -8,7 +8,9 @@
         <p class="p p1">装修情况:</p>
         <div class="p1-detail">水电改造已经完成，墙面清楚完成</div>
         <p class="p p2">完成百分比:</p>
-        <div class="p2-detail"></div>
+        <div class="p2-detail">
+          <el-progress :percentage="percentage" :color="customColors"></el-progress>
+        </div>
         <p class="p p3">出勤情况:</p>
         <div class="p3-detail">
           <!-- 总出勤人数：{{10}}人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总出勤工时：{{28}}人<span>/</span>日 -->
@@ -35,7 +37,13 @@ export default {
   data() {
     return {
       isCheckShow: false,
-      i: -1
+      i: -1,
+      percentage: 30,
+      customColors: [
+        {color: '#f22e2e', percentage: 40},
+        {color: '#e6a23c', percentage: 80},
+        {color: '#5cb87a', percentage: 100},
+      ]
     }
   },
   methods: {
@@ -131,4 +139,22 @@ export default {
       }
     }
   }
+</style>
+<style>
+.checkWeeklyReport .el-progress-bar{
+  padding-right: 80px;
+}
+.checkWeeklyReport .el-progress__text{
+  float: right;
+  margin-top: -28px;
+}
+.checkWeeklyReport .el-progress{
+  padding-top: 40px;
+  width: 95%;
+}
+.checkWeeklyReport .el-progress .el-progress-bar .el-progress-bar__outer{
+  background-color: #fff;
+  border: 2px solid #737373;
+  height: 24px !important;
+}
 </style>

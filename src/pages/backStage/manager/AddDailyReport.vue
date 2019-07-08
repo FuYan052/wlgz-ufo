@@ -6,16 +6,20 @@
     </div>
     <div class="title2">现场照片:</div>
     <div class="picBox">
-      <!-- <el-upload
+      <el-upload
         action="https://jsonplaceholder.typicode.com/posts/"
         list-type="picture-card"
+        :limit='8'
+        :multiple='true'
+        :on-change="showList"
+        :on-exceed="overLimit"
         :on-preview="handlePictureCardPreview"
         :on-remove="handleRemove">
         <i class="el-icon-plus"></i>
       </el-upload>
       <el-dialog :visible.sync="dialogVisible">
         <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog> -->
+      </el-dialog>
     </div>
     <div class="submitBtn">
       提交
@@ -34,16 +38,25 @@ export default {
     return {
       dialogImageUrl: '',
       dialogVisible: false,
-      dailyText: ''
+      dailyText: '',
     }
   },
   methods: {
+    overLimit(file, fileList) {
+      this.$message({
+          message: '最多上传8张',
+          type: 'warning'
+        });
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
+    },
+    showList(file, fileList) {
+      console.log(fileList)
     },
     childByValue(childValue) {
       this.dailyText = childValue
@@ -101,4 +114,9 @@ export default {
       border-radius: 10px;
     }
   }
+</style>
+<style>
+.addDailyReport .el-upload-list--picture-card .el-upload-list__item{
+  margin: 0 3.267vw 1.067vw 0;
+}
 </style>

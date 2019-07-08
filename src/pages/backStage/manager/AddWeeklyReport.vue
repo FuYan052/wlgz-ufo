@@ -6,17 +6,10 @@
     </div>
     <div class="title2">完成比例:</div>
     <div class="percentBox">
-      <!-- <div class="progress">
-        <div class="progress-bar progress-bar-success" style="width: 35%">
-          <span class="sr-only">35% Complete (success)</span>
-        </div>
-        <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-          <span class="sr-only">20% Complete (warning)</span>
-        </div>
-        <div class="progress-bar progress-bar-danger" style="width: 10%">
-          <span class="sr-only">10% Complete (danger)</span>
-        </div>
-      </div> -->
+      <el-progress :percentage="percentage" :color="customColors"></el-progress>
+      <p class="number">
+        <input type="number" v-model="percentage" name="" id="">%
+      </p>
     </div>
     <div class="title3">综合评价:</div>
     <div class="addTeaxarea">
@@ -24,7 +17,20 @@
     </div>
     <div class="title4">现场照片:</div>
     <div class="picBox">
-
+      <el-upload
+        action="https://jsonplaceholder.typicode.com/posts/"
+        list-type="picture-card"
+        :limit='8'
+        :multiple='true'
+        :on-change="showList"
+        :on-exceed="overLimit"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove">
+        <i class="el-icon-plus"></i>
+      </el-upload>
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
     </div>
     <div class="submitBtn">
       提交
@@ -43,12 +49,36 @@ export default {
     return {
       weeklyText1: '',
       weeklyText2: '',
+      dialogImageUrl: '',
+      dialogVisible: false,
+      percentage: 30,
+      customColors: [
+        {color: '#f22e2e', percentage: 40},
+        {color: '#e6a23c', percentage: 80},
+        {color: '#5cb87a', percentage: 100},
+      ]
     }
   },
   created() {
     // console.log($)
   },
   methods: {
+    overLimit(file, fileList) {
+      this.$message({
+          message: '最多上传8张',
+          type: 'warning'
+        });
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    showList(file, fileList) {
+      console.log(fileList)
+    },
     childByValue1(childValue) {
       this.weeklyText1 = childValue
       // console.log(this.weeklyText1)
@@ -88,7 +118,21 @@ export default {
     .percentBox{
       width: 100%;
       height: 120px;
-      border: 1px solid red;
+      padding-top: 10px;
+      .number{
+        float: right;
+        margin-top: -40px;
+        margin-right: 10px;
+        input{
+          width: 55px;
+          height: 55px;
+          font-size: 30px;
+          line-height: 55px;
+          text-align: center;
+          border: 1px solid #737373;
+          outline: none;
+        }
+      }
     }
     .title3{
       width: 100%;
@@ -124,4 +168,24 @@ export default {
       border-radius: 10px;
     }
   }
+</style>
+<style>
+.addWeeklyReport .el-upload-list--picture-card .el-upload-list__item{
+  margin: 0 3.267vw 1.067vw 0;
+}
+.addWeeklyReport .el-progress{
+  margin-top: 40px;
+  width: 85%;
+}
+.addWeeklyReport .el-progress .el-progress-bar{
+  width: 100%;
+}
+.addWeeklyReport .el-progress .el-progress__text{
+  display: none;
+}
+.addWeeklyReport .el-progress .el-progress-bar .el-progress-bar__outer{
+  background-color: #fff;
+  border: 2px solid #737373;
+  height: 24px !important;
+}
 </style>

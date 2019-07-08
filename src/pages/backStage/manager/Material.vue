@@ -25,10 +25,34 @@
           所用部位：<span>总裁办公室</span>
         </h5>
         <h5>
-          到货时间：<span class="date">date</span>
+          到货时间：<span class="date">
+            <div class="block">
+              <el-date-picker
+                v-model="value1"
+                align="left"
+                type="date"
+                placeholder="选择日期">
+              </el-date-picker>
+            </div>
+          </span>
         </h5>
         <h5>
-          到货照片：<span class="image"></span>
+          到货照片：<span class="image">
+            <el-upload
+              action="https://jsonplaceholder.typicode.com/posts/"
+              list-type="picture-card"
+              :limit='8'
+              :multiple='true'
+              :on-change="showList"
+              :on-exceed="overLimit"
+              :on-preview="handlePictureCardPreview"
+              :on-remove="handleRemove">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+          </span>
         </h5>
       </div>
     </div>
@@ -41,10 +65,29 @@ export default {
   data() {
     return {
       isShowDetail: false,
-      j: -1
+      j: -1,
+      value1: '',
+      dialogImageUrl: '',
+      dialogVisible: false,
     }
   },
   methods: {
+    overLimit(file, fileList) {
+      this.$message({
+          message: '最多上传8张',
+          type: 'warning'
+        });
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    showList(file, fileList) {
+      console.log(fileList)
+    },
     changeShow(index) {
       this.isShowDetail = !this.isShowDetail
       if(this.isShowDetail){
@@ -101,9 +144,28 @@ export default {
           border: 1px solid #ededed;
           margin-left: -20px;
           margin-top: 37px;
+          padding: 30px 20px;
         }
       }
     }
   }
+</style>
+<style>
+.el-popper[x-placement^=bottom] .popper__arrow:after{
+  content: ''
+}
+.date .block .el-date-editor.el-input{
+  width: 350px;
+}
+.el-date-picker{
+  width: 400px !important;
+}
+.material .el-upload-list--picture-card .el-upload-list__item{
+  /* margin: 0 1.567vw 1.067vw 0; */
+}
+.material .el-progress{
+  margin-top: 40px;
+  width: 85%;
+}
 </style>
 
