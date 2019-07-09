@@ -29,6 +29,8 @@
             <div class="block">
               <el-date-picker
                 v-model="value1"
+                @change="dateChange"
+                value-format="yyyy-MM-dd"
                 align="left"
                 type="date"
                 placeholder="选择日期">
@@ -72,6 +74,9 @@ export default {
     }
   },
   methods: {
+    dateChange(v) {
+      console.log(v)
+    },
     overLimit(file, fileList) {
       this.$message({
           message: '最多上传8张',
@@ -135,7 +140,6 @@ export default {
           display: inline-block;
           width: 450px;
           height: 50px;
-          border: 1px solid paleturquoise;
         }
         .image{
           display: block;
@@ -159,6 +163,21 @@ export default {
 }
 .el-date-picker{
   width: 400px !important;
+}
+.el-input--prefix .el-input__inner{
+  padding-left: 45px;
+  color: black;
+}
+.el-date-picker .el-picker-panel__content{
+  width: 350px;
+}
+.el-date-table td{
+  padding: 6px 0;
+}
+.el-date-table td span{
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
 }
 .material .el-upload-list--picture-card .el-upload-list__item{
   /* margin: 0 1.567vw 1.067vw 0; */
