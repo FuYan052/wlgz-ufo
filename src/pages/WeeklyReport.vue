@@ -3,7 +3,7 @@
   <div class="weeklyReport" v-title data-title="装修周报">
     <div v-for="(item,index) in 4" :key="index">
       <div class="w-title" @click="changeShow(index)">
-        201904第一周<span>></span>
+        201904第一周<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="w-detail" v-show="index === i">
         <p class="p p1">装修情况:</p>
@@ -43,7 +43,7 @@ export default {
         {color: '#f22e2e', percentage: 40},
         {color: '#e6a23c', percentage: 80},
         {color: '#5cb87a', percentage: 100},
-      ]
+      ],
     }
   },
   methods: {

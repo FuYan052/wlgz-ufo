@@ -9,10 +9,10 @@
       </div>
     </div>
     <ul class="menuList">
-      <li @click="toUserInfo">个人信息<span>></span></li>
-      <li  @click="toWeeklyReport">装修报告<span>></span></li>
-      <li @click="toDailyReport">装修日志<span>></span></li>
-      <li @click="toAttendance">出勤情况<span>></span></li>
+      <li @click="toUserInfo">个人信息<span><i class="el-icon-arrow-right"></i></span></li>
+      <li  @click="toWeeklyReport">装修报告<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toDailyReport">装修日志<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toAttendance">出勤情况<span><i class="el-icon-arrow-right"></i></span></li>
     </ul>
   </div>
 </template>

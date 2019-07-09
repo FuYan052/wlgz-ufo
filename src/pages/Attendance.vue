@@ -3,7 +3,7 @@
   <div class="attendance" v-title data-title="出勤情况">
     <div v-for="(item,index) in 4" :key="index">
       <div class="a-title" @click="changeDailyShow(index)">
-        20190405<span>></span>
+        20190405<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="a-detail" v-show="index === i">
         <div class="item" v-for="(it,ind) in 3" :key="ind">

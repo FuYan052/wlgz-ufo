@@ -3,7 +3,7 @@
   <div class="dailyReport" v-title data-title="装修日志">
     <div v-for="(item,index) in 4" :key="index">
       <div class="d-title" @click="changeDailyShow(index)">
-        20190405<span>></span>
+        20190405<span><i class="el-icon-arrow-right" v-show="index !== j"></i><i v-show="index === j" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="d-detail" v-show="index === j">
         <h5>施工内容：</h5>

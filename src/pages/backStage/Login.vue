@@ -56,6 +56,7 @@ export default {
     .password{
       width: 100%;
       height: 64px;
+      padding-left: 30px;
       border-bottom: 2px solid #d1d1d1;
       padding-bottom: 4px;
       input{

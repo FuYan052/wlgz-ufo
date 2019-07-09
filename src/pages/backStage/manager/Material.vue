@@ -3,7 +3,7 @@
   <div class="material">
     <div v-for="(item,index) in 4" :key="index">
       <h4 class="m-title" @click="changeShow(index)">
-        实木地板<span>></span>
+        实木地板<span><b class="el-icon-arrow-right" v-show="index !== j"></b><b v-show="index === j" class="el-icon-arrow-down"></b></span>
       </h4>
       <div class="m-detail" v-show="index === j">
         <h5>

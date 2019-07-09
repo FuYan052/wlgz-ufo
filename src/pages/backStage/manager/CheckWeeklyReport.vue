@@ -2,7 +2,7 @@
   <div class="checkWeeklyReport">
     <div v-for="(item,index) in 4" :key="index">
       <div class="w-title" @click="changeCheckShow(index)">
-        201904第一周<span>></span>
+        201904第一周<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="w-detail" v-show="index === i">
         <p class="p p1">装修情况:</p>
@@ -12,9 +12,15 @@
           <el-progress :percentage="percentage" :color="customColors"></el-progress>
         </div>
         <p class="p p3">出勤情况:</p>
-        <div class="p3-detail">
+        <div id="main" class="p3-detail">
           <!-- 总出勤人数：{{10}}人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总出勤工时：{{28}}人<span>/</span>日 -->
-
+          <vue-chart
+            class="chart"
+            type="bar"
+            :data="chartData"
+            :options="{scales: {yAxes: [{ticks: {beginAtZero: true}}]}}"
+            :update-config="{duration: 800, easing: 'easeOutBounce'}"
+          ></vue-chart>
         </div>
         <p class="p p4">综合评分:</p>
         <div class="p4-detail">
@@ -32,8 +38,12 @@
 </template>
 
 <script>
+import VueChart from 'vuechart';
 export default {
   name: 'CheckWeeklyReport',
+  components: {
+    VueChart,
+  },  
   data() {
     return {
       isCheckShow: false,
@@ -43,7 +53,18 @@ export default {
         {color: '#f22e2e', percentage: 40},
         {color: '#e6a23c', percentage: 80},
         {color: '#5cb87a', percentage: 100},
-      ]
+      ],
+      chartData: {
+        labels: ['6/7', '6/8', '6/9','6/10', '6/11','6/12', '6/13'],
+        datasets: [
+            {
+                label: '一周出勤',
+                data: [4, 7, 10, 6, 5, 8, 3],
+                backgroundColor: '#fc8d52',
+                pointBorderColor: 'white',
+            }
+        ]
+    }
     }
   },
   methods: {
@@ -59,7 +80,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
   .checkWeeklyReport{
     width: 100%;  
@@ -106,7 +126,7 @@ export default {
       .p3-detail{
         width: 100%;
         height: 300px;
-        border: 1px solid red;
+        // border: 1px solid red;
         span{
           font-size: 36px;
           line-height: 40px;
@@ -156,5 +176,8 @@ export default {
   background-color: #fff;
   border: 2px solid #737373;
   height: 24px !important;
+}
+.p3-detail .chart{
+  width: 85% !important;
 }
 </style>

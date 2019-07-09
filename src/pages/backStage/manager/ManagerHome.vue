@@ -3,7 +3,7 @@
   <div class="managerHome">
     <div class="projectCate">
       <div class="cateWrap">
-        <div class="title" @click="showCurrPro">进行中项目<span>></span></div>
+        <div class="title" @click="showCurrPro">进行中项目<span><i class="el-icon-arrow-right" v-show="isRight1"></i><i v-show="isDown1" class="el-icon-arrow-down"></i></span></div>
         <ul class="currPro" v-show="isShowCurrPro">
           <li v-for="(item,index) in 3" :key="index" @click="toProject">
             <span class="number">1</span>
@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class="cateWrap">
-        <div class="title" @click="showHisPro">历史项目<span>></span></div>
+        <div class="title" @click="showHisPro">历史项目<span><i class="el-icon-arrow-right" v-show="isRight2"></i><i v-show="isDown2" class="el-icon-arrow-down"></i></span></div>
         <ul class="historyPro" v-show="isShowHisPro">
           <li v-for="(item,index) in 5" :key="index" @click="toProject">
             <span class="proName">华丽天辰</span>
@@ -31,14 +31,22 @@ export default {
     return {
       isShowCurrPro: false,
       isShowHisPro: false,
+      isRight1: true,  //控制箭头方向
+      isDown1: false,  //控制箭头方向
+      isRight2: true,  //控制箭头方向
+      isDown2: false,  //控制箭头方向
     }
   },
   methods: {
     showCurrPro() {
       this.isShowCurrPro = !this.isShowCurrPro
+      this.isRight1 = !this.isRight1
+      this.isDown1 = !this.isDown1
     },
     showHisPro() {
       this.isShowHisPro = !this.isShowHisPro
+      this.isRight2 = !this.isRight2
+      this.isDown2 = !this.isDown2
     },
     toProject() {
       this.$router.push({
