@@ -2,14 +2,14 @@
   <div class="userCenter">
     <div class="userInfo">
       <div class="userPic">
-        <img src="../assets/touxiang.jpg" alt="">
+        <img preview="0" preview-text="" src="../assets/touxiang.jpg" alt="">
       </div>
       <div class="userName">
         <p>{{userName}}</p>
       </div>
       <div class="loginBox" v-show="!isLogin">
         <p>登录手机号，查看装修进度及情况</p>
-        <span>登录</span>
+        <span @click="toLogin">登录</span>
       </div>
     </div>
     <div class="newMessage" v-show="isLogin">
@@ -39,10 +39,15 @@ export default {
   data() {
     return{
       userName: '小丸子',
-      isLogin: true
+      isLogin: false
     }
   },
   methods: {
+    toLogin() {
+      this.$router.push({
+        path: '/login'
+      })
+    },
     showToDoList() {
       this.$router.push({
         path: '/showToDoList'
