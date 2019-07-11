@@ -2,7 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import UserCenter from '@/pages/UserCenter'
-import UserInfo from '@/pages/UserInfo'
+import OwnerProject from '@/pages/OwnerProject'
+import TeamInfo from '@/pages/TeamInfo'
+import Drawing from '@/pages/Drawing'
+import Control from '@/pages/Control'
+import MaterialTrack from '@/pages/MaterialTrack'
+import IntelligentOffice from '@/pages/IntelligentOffice'
+import ShowToDoList from '@/pages/ShowToDoList'
+import News from '@/pages/News'
+// import UserInfo from '@/pages/UserInfo'
 import WeeklyReport from '@/pages/WeeklyReport'
 import DailyReport from '@/pages/DailyReport'
 import Attendance from '@/pages/Attendance'
@@ -36,10 +44,50 @@ export default new Router({
       component: UserCenter
     },
     {
-      path: '/userInfo',
-      name: 'UserInfo',
-      component: UserInfo
+      path: '/ownerProject',
+      name: 'OwnerProject',
+      component: OwnerProject
     },
+    {
+      path: '/teamInfo',
+      name: 'TeamInfo',
+      component: TeamInfo
+    },
+    {
+      path: '/drawing',
+      name: 'Drawing',
+      component: Drawing
+    },
+    {
+      path: '/control',
+      name: 'Control',
+      component: Control
+    },
+    {
+      path: '/materialTrack',
+      name: 'MaterialTrack',
+      component: MaterialTrack
+    },
+    {
+      path: '/intelligentOffice',
+      name: 'IntelligentOffice',
+      component: IntelligentOffice
+    },
+    {
+      path: '/showToDoList',
+      name: 'ShowToDoList',
+      component: ShowToDoList
+    },
+    {
+      path: '/news',
+      name: 'News',
+      component: News
+    },
+    // {
+    //   path: '/userInfo',
+    //   name: 'UserInfo',
+    //   component: UserInfo
+    // },
     {
       path: '/weeklyReport',
       name: 'WeeklyReport',

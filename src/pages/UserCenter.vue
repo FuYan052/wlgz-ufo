@@ -7,12 +7,28 @@
       <div class="userName">
         <p>{{userName}}</p>
       </div>
+      <div class="loginBox" v-show="!isLogin">
+        <p>登录手机号，查看装修进度及情况</p>
+        <span>登录</span>
+      </div>
+    </div>
+    <div class="newMessage" v-show="isLogin">
+      <div class="toDoList" @click="showToDoList">
+        <h5>2</h5>
+        <p>待办事项</p>
+      </div>
+      <div class="message" @click="toNews">
+        <h5>2</h5>
+        <p>最新消息</p>
+      </div>
     </div>
     <ul class="menuList">
-      <li @click="toUserInfo">个人信息<span><i class="el-icon-arrow-right"></i></span></li>
-      <li  @click="toWeeklyReport">装修报告<span><i class="el-icon-arrow-right"></i></span></li>
-      <li @click="toDailyReport">装修日志<span><i class="el-icon-arrow-right"></i></span></li>
-      <li @click="toAttendance">出勤情况<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toOwnerProject"><span id="icon"><i class="el-icon-s-order"></i></span>项目概况<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toTeamInfo"><span id="icon"><i class="el-icon-user-solid"></i></span>班组信息<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toDrawing"><span id="icon"><i class="el-icon-picture"></i></span>设计出图<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toControl"><span id="icon"><i class="el-icon-s-check"></i></span>施工管控<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toMaterialTrack"><span id="icon"><i class="el-icon-s-claim"></i></span>材料追踪<span><i class="el-icon-arrow-right"></i></span></li>
+      <li @click="toIntelligentOffice"><span id="icon"><i class="el-icon-s-platform"></i></span>智能办公<span><i class="el-icon-arrow-right"></i></span></li>
     </ul>
   </div>
 </template>
@@ -22,30 +38,51 @@ export default {
   name: 'UserCenter',
   data() {
     return{
-      userName: '张星宇'
+      userName: '小丸子',
+      isLogin: true
     }
   },
   methods: {
-    toUserInfo() {
+    showToDoList() {
       this.$router.push({
-        path: '/userInfo'
+        path: '/showToDoList'
       })
     },
-    toWeeklyReport() {
+    toNews() {
       this.$router.push({
-        path: '/weeklyReport'
+        path: '/news'
       })
     },
-    toDailyReport() {
+    toOwnerProject() {
       this.$router.push({
-        path: '/dailyReport'
+        path: '/ownerProject'
       })
     },
-    toAttendance() {
+    toTeamInfo() {
       this.$router.push({
-        path: '/attendance'
+        path: '/teamInfo'
       })
-    }
+    },
+    toDrawing() {
+      this.$router.push({
+        path: '/drawing'
+      })
+    },
+    toControl() {
+      this.$router.push({
+        path: '/control'
+      })
+    },
+    toMaterialTrack() {
+      this.$router.push({
+        path: '/materialTrack'
+      })
+    },
+    toIntelligentOffice() {
+      this.$router.push({
+        path: '/intelligentOffice'
+      })
+    },
   }
 }
 </script>
@@ -54,35 +91,92 @@ export default {
   .userCenter{
     .userInfo{
       width: 100%;
-      height: 212px;
+      height: 355px;
+      background: #818bc0;
+      position: relative;
       .userPic{
-        width: 28.2%;
-        height: 100%;
         float: left;
-        background: #e6e5ee;
-        position: relative;
+        margin-top: 80px;
+        margin-left: 40px;
         img{
-          width: 186px;
-          height: 186px;
+          width: 125px;
+          height: 125px;
           border-radius: 50%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          margin: auto;
         }
       }
       .userName{
-        width: 71.8%;
-        height: 100%;
         float: left;
-        background: #818bc0;
         p{
           color: #f5f5fb;
           font-size: 34px;
           margin-left: 34px;
-          margin-top: 90px;
+          margin-top: 120px;
+        }
+      }
+      .loginBox{
+        width: 100%;
+        height: 80px;
+        padding-left: 20px;
+        padding-right: 55px;
+        position: absolute;
+        bottom: 0;
+        p{
+          height: 80px;
+          line-height: 80px;
+          font-size: 26px;
+          color: #fff;
+          float: left;
+        }
+        span{
+          display: block;
+          float: right;
+          width: 135px;
+          height: 40px;
+          color: #fff;
+          font-size: 24px;
+          line-height: 40px;;
+          text-align: center;
+          background: #33cc66;
+          border-radius: 6px;
+          margin-top: 20px;
+        }
+      }
+    }
+    .newMessage{
+      width: 100%;
+      height: 155px;
+      margin-top: 20px;
+      background: #f0f0f0;
+      border-top: 1px solid #d1d1d1;
+      border-bottom: 1px solid #d1d1d1;
+      .toDoList{
+        width: 300px;
+        height: 155px;
+        float: left;
+        h5{
+          margin-top: 30px;
+          text-align: center;
+        }
+        p{
+          text-align: center;
+          margin-top: 25px;
+          font-size: 25px;
+          color: #9a9a9a;
+        }
+      }
+      .message{
+        width: 300px;
+        height: 155px;
+        float: right;
+        h5{
+          margin-top: 30px;
+          text-align: center;
+        }
+        p{
+          text-align: center;
+          margin-top: 25px;
+          font-size: 25px;
+          color: #9a9a9a;
         }
       }
     }
@@ -93,14 +187,22 @@ export default {
       li{
         width: 100%;
         height: 25%;
-        padding-left: 134px;
+        padding-left: 45px;
         font-size: 28px;
         line-height: 91px;
         background: #f0f0f0;
         border-top: 1px solid #d1d1d1;
         border-bottom: 1px solid #d1d1d1;
         cursor: pointer;
-        span{
+        #icon{
+          padding-right: 30px;
+          font-size: 46px;
+          line-height: 91px;
+          color: #cccccc;
+          display: block;
+          float: left;
+        }
+        span:nth-of-type(2){
           width: 85px;
           height: 100%;
           font-size: 28px;
