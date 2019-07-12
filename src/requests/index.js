@@ -5,6 +5,8 @@ import { Message } from 'element-ui'
 const ajax = axios.create({
   baseURL: 'http://192.168.0.122:9000/'
 })
+
+// 模拟登录数据 
 // const ajax = axios.create({
 //   baseURL: 'http://rap2api.taobao.org/app/mock'
 // })
@@ -13,9 +15,9 @@ const ajax = axios.create({
 ajax.interceptors.request.use(config => {
   console.log(config)
   // Do something before request is sent
-  // if (localStorage.getItem('ufo-token')) {
-  //   config.headers.ufo-token = localStorage.getItem('ufo-token'); 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
-  // }
+  if (localStorage.getItem('ufo-token')) {
+    config.headers.common['token'] = localStorage.getItem('ufo-token'); //让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+  }
   return config
 }, error => {
   // Do something with request error
@@ -71,5 +73,5 @@ export const postLogin = (params) => {
   return ajax.post(`/v1/rest/login/doLogin?phone=${params.phoneNum}&passWord=${params.password}`)
 }
 // export const postLogin = () => {
-//   return ajax.post(`/api/login`)
+//   return ajax.post(`/167512/api/login`)
 // }

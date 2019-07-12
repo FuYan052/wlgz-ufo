@@ -6,7 +6,7 @@
         <p>我的设计师</p>
         <div class="wrap">
           <div class="designerPic">
-            <img src="../assets/touxiang.jpg" alt="">
+            <img preview="8" src="../assets/touxiang.jpg" alt="">
           </div>
           <div class="designerName">
             <p>王某某</p>
@@ -139,7 +139,7 @@
       <p class="tj">推荐设计师</p>
       <ul>
         <li v-for="(item,index) in 4" :key="index">
-          <img src="../assets/touxiang.jpg" alt="">
+          <img preview="8" src="../assets/touxiang.jpg" alt="">
           <p id="name">设计总监<span>王伟伟</span></p>
           <p class="count">服务超过135个客户</p>
         </li>

@@ -129,6 +129,8 @@
         </span>
       </el-dialog>
     </div>
+    <!-- 弹框背景 -->
+    <div class="bg" v-show="centerDialogVisible"></div>
   </div>
 </template>
 
@@ -316,6 +318,16 @@ export default {
   }
 </style>
 <style>
+.bg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  outline: none;
+  background: rgba(0,0,0,0.5)
+}
 .el-popper[x-placement^=bottom] .popper__arrow:after{
   content: ''
 }

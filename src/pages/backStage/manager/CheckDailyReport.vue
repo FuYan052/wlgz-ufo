@@ -12,7 +12,7 @@
         <h5>施工现场：</h5>
         <div class="imgBox">
           <div class="image" v-for="(item,index) in 8" :key="index">
-            <img src="../../../assets/touxiang.jpg" alt="" />
+            <img preview="4" src="../../../assets/touxiang.jpg" alt="" />
           </div>
         </div>
       </div>

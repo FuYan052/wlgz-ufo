@@ -26,18 +26,18 @@ Vue.use(ElementUI);
 Vue.use(preview)
 
 // 全局导航守卫
-// router.beforeEach((to, from, next) => {
-//   if(to.path === "/backstageHome") {  // 如果要去登录页面，直接放行
-//     next();   
-//   } else {
-//     if(to.meta.isAuthRequired && store.state.isLogin === false) {   // 如果要去的页面需要验证登录并且当前用户没有登录,回到之前页面
-//       next('/backstageHome')
-//     } else {
-//       next();
-//     }
-//   }
-// })
-
+router.beforeEach((to, from, next) => {
+  if (to.path === '/userCenter') {
+    next();
+  } else {
+    let t = localStorage.getItem('ufo-token');
+    if (t === 'null' || t === '' && to.path != '/login') {
+      next('/login');
+    } else {
+      next();
+    }
+  }
+});
 
 /* eslint-disable no-new */
 new Vue({
@@ -45,5 +45,13 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  created() {
+    if(window.localStorage.getItem('ufo-token') === null){
+      window.localStorage.setItem('ufo-token','')
+    }
+    if(window.localStorage.getItem('type') === null){
+      window.localStorage.setItem('type','')
+    }
+  }
 })

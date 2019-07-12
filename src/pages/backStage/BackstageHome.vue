@@ -3,43 +3,52 @@
     <div class="choiceRole">
       请选择角色
     </div>
-    <div class="role" @click="choiceRole1">我是业主</div>
-    <div class="role" @click="choiceRole2">我是项目经理</div>
-    <div class="role" @click="choiceRole3">我是设计师</div>
+    <div class="role" @click="choiceRole(role1)">我是业主</div>
+    <div class="role" @click="choiceRole(role2)">我是项目经理</div>
+    <div class="role" @click="choiceRole(role3)">我是设计师</div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'BackstageHome',
+  data() {
+    return {
+      role1: 1, //业主身份
+      role2: 2, //项目经理身份
+      role3: 3, //设计师身份
+      type: null
+    }
+  },
+  computed: {
+  },
+  created() {
+    this.type = Number(this.$store.state.type)
+  },
   methods: {
-    choiceRole1() {
-      this.$router.push({
-        path: '/login',
-        name: 'Login',
-        params: {
-          role: 'role1' //业主身份
+    choiceRole(role) {
+      console.log('type:'+ this.type)
+      console.log('role:'+ role)
+      if(role === this.type){
+        if(role === 1){
+          this.$router.push({
+            path: '/userCenter',
+          })
         }
-      })
-    },
-    choiceRole2() {
-      this.$router.push({
-        path: '/login',
-        name: 'Login',
-        params: {
-          role: 'role1'  //项目经理身份
+        if(role === 2){
+          this.$router.push({
+            path: '/managerHome',
+          })
         }
-      })
-    },
-    choiceRole3() {
-      this.$router.push({
-        path: '/login',
-        name: 'Login',
-        params: {
-          role: 'role1'  //设计师身份
+        if(role === 3){
+          this.$router.push({
+            path: '/designerHome',
+          })
         }
-      })
-    },
+      }else{
+        this.$message('抱歉，身份不符！');
+      }
+    }
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div class="intelligentOffice" v-title data-title="智能办公">
     <ul>
       <li v-for="(item,index) in 4" :key="index">
-        <img src="../assets/touxiang.jpg" alt="">
+        <img preview="9" src="../assets/touxiang.jpg" alt="">
         <p>小米打印机</p>
         <p>￥499</p>
       </li>

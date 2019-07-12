@@ -52,7 +52,7 @@
               <i class="el-icon-plus"></i>
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="">
+              <img preview="6" width="100%" :src="dialogImageUrl" alt="">
             </el-dialog>
           </span>
         </h5>

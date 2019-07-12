@@ -11,6 +11,13 @@ export default {
 </script>
 
 <style>
+body{
+  width: 100%;
+  height: 100%;
+}
+.v-modal{
+  display: none !important;
+}
 *{
   list-style: none;
   text-decoration: none;
@@ -67,6 +74,7 @@ table{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
   /* text-align: center;
   color: #2c3e50;
   margin-top: 60px; */

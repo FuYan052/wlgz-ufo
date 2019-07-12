@@ -29,7 +29,7 @@
         <p class="p p5">现场图:</p>
         <div class="p5-detail">
           <div class="image" v-for="(item,index) in 4" :key="index">
-            <img src="../assets/touxiang.jpg" alt="">
+            <img preview="10" src="../assets/touxiang.jpg" alt="">
           </div>
         </div>
       </div>

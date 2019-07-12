@@ -2,7 +2,7 @@
   <div class="userCenter">
     <div class="userInfo">
       <div class="userPic">
-        <img preview="0" preview-text="" src="../assets/touxiang.jpg" alt="">
+        <img preview="0" src="../assets/touxiang.jpg" alt="">
       </div>
       <div class="userName">
         <p>{{userName}}</p>
@@ -11,6 +11,15 @@
         <p>登录手机号，查看装修进度及情况</p>
         <span @click="toLogin">登录</span>
       </div>
+      <!-- 登录之后显示当前项目 -->
+      <el-select v-model="value" v-show="isLogin">
+        <el-option
+          v-for="item in projectList"
+          :key="item.id"
+          :label="item.name"
+          :value="item.name">
+        </el-option>
+      </el-select>
     </div>
     <div class="newMessage" v-show="isLogin">
       <div class="toDoList" @click="showToDoList">
@@ -30,19 +39,61 @@
       <li @click="toMaterialTrack"><span id="icon"><i class="el-icon-s-claim"></i></span>材料追踪<span><i class="el-icon-arrow-right"></i></span></li>
       <li @click="toIntelligentOffice"><span id="icon"><i class="el-icon-s-platform"></i></span>智能办公<span><i class="el-icon-arrow-right"></i></span></li>
     </ul>
+    <!-- 弹框背景 -->
+    <div class="bg" v-show="centerDialogVisible"></div>
+    <el-dialog
+      title="提示"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <span>您还未开启项目，马上登录开启吧！</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sure">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
   name: 'UserCenter',
   data() {
     return{
       userName: '小丸子',
-      isLogin: false
+      centerDialogVisible: false,
+      value: '选择项目',
+      projectList: [
+        {
+          id: 1,
+          name: '项目1'
+        },
+        {
+          id: 2,
+          name: '项目2'
+        },
+        {
+          id: 3,
+          name: '项目3'
+        },
+      ]
     }
   },
+  computed: {
+    ...mapState(["isLogin"]),
+  },
   methods: {
+    changeProject(e) {
+      console.log(e)
+      // this.currProject = project.name
+    },
+    sure() {
+      this.centerDialogVisible = false
+      this.$router.push({
+        path: '/login'
+      })
+    },
     toLogin() {
       this.$router.push({
         path: '/login'
@@ -59,34 +110,58 @@ export default {
       })
     },
     toOwnerProject() {
-      this.$router.push({
-        path: '/ownerProject'
-      })
+      if(!this.isLogin) {
+        this.centerDialogVisible = true
+      }else{
+        this.$router.push({
+          path: '/ownerProject'
+        })
+      }
     },
     toTeamInfo() {
-      this.$router.push({
-        path: '/teamInfo'
-      })
+      if(!this.isLogin) {
+        this.centerDialogVisible = true
+      }else{
+        this.$router.push({
+          path: '/teamInfo'
+        })
+      }
     },
     toDrawing() {
-      this.$router.push({
-        path: '/drawing'
-      })
+      if(!this.isLogin) {
+        this.centerDialogVisible = true
+      }else{
+        this.$router.push({
+          path: '/drawing'
+        })
+      }
     },
     toControl() {
-      this.$router.push({
-        path: '/control'
-      })
+      if(!this.isLogin) {
+        this.centerDialogVisible = true
+      }else{
+        this.$router.push({
+          path: '/control'
+        })
+      }
     },
     toMaterialTrack() {
-      this.$router.push({
-        path: '/materialTrack'
-      })
+      if(!this.isLogin) {
+        this.centerDialogVisible = true
+      }else{
+        this.$router.push({
+          path: '/materialTrack'
+        })
+      }
     },
     toIntelligentOffice() {
-      this.$router.push({
-        path: '/intelligentOffice'
-      })
+      if(!this.isLogin) {
+        this.centerDialogVisible = true
+      }else{
+        this.$router.push({
+          path: '/intelligentOffice'
+        })
+      }
     },
   }
 }
@@ -94,6 +169,9 @@ export default {
 
 <style lang="scss" scoped>
   .userCenter{
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
     .userInfo{
       width: 100%;
       height: 355px;
@@ -220,5 +298,61 @@ export default {
       }
     }
   }
+</style>
+<style>
+.userCenter .el-select{
+  position: absolute;
+  left: 40px;
+  bottom: 30px;
+}
+.userCenter .el-select .el-input__suffix{
+  display: none;
+}
+.userCenter input{
+  font-size: 28px;
+  color: #fff;
+  letter-spacing: 3px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  outline: none;
+}
+.userCenter .el-select .el-input{
+  width: 200px;
+}
+.el-select .el-input.is-focus .el-input__inner{
+  padding-right: 20px;
+}
+.el-popper[x-placement^=bottom] .popper__arrow:after{
+  content: '';
+}
+.bg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  outline: none;
+  background: rgba(0,0,0,0.5)
+}
+.userCenter .el-dialog--center{
+  width: 70% !important;
+  margin-top: 380px !important;
+}
+.userCenter .el-dialog--center .el-dialog__body{
+  padding-top: 80px;
+  padding-bottom: 60px;
+}
+.userCenter .el-button--primary{
+  background-color: #33cc66;
+  border-color: #33cc66;
+}
+.userCenter .el-button{
+  margin: 0 20px;
+}
+.userCenter .el-dialog--center .el-dialog__body{
+  text-align: center
+}
 </style>
 

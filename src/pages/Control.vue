@@ -38,7 +38,6 @@ export default {
     .menuList{
       width: 100%;
       height: 380px;
-      margin-top: 20px;
       li{
         width: 100%;
         height: 25%;

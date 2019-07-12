@@ -8,7 +8,7 @@
       <div class="a-detail" v-show="index === i">
         <div class="item" v-for="(it,ind) in 3" :key="ind">
           <div class="leftImg">
-            <img src="../assets/touxiang.jpg" alt="">
+            <img preview="2" src="../assets/touxiang.jpg" alt="">
           </div>
           <div class="right">
             <p>

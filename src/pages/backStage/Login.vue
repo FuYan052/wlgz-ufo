@@ -23,12 +23,9 @@ export default {
     return {
       phoneNum: '18215636449',
       password: '123456',
-      role: ''  //路由传过来，role1是业主，role2是项目经理,role3是设计师
     }
   },
   created() {
-    console.log(this.$route.params)
-    this.role = this.$route.params.role
   },
   computed: {
     ...mapState(['isLogin'])
@@ -44,15 +41,28 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['changeLoginStatus']),
+    ...mapMutations(['changeLoginStatus','changeType','changeToken']),
     handleLogin () {
       const params = {
         phoneNum: this.phoneNum,
         password: this.password
       }
-      console.log(params)
       this.$http.postLogin(params).then(resp => {
         console.log(resp)
+        if(resp.status === 200) {
+          window.localStorage.setItem('type', resp.data.type)
+          window.localStorage.setItem('ufo-token', resp.data.token)
+          this.changeType(resp.data.type)
+          this.changeLoginStatus(true)
+          this.changeToken(resp.data.token)
+          this.$router.push({
+            path: '/backstageHome', 
+            name: 'BackstageHome',
+            params: {
+              type: resp.data.type
+            }
+          })
+        }
       })
       // this.$http.postLogin()
       //   .then(resp => {
