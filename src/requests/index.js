@@ -75,3 +75,114 @@ export const postLogin = (params) => {
 // export const postLogin = () => {
 //   return ajax.post(`/167512/api/login`)
 // }
+
+// 前台业主部分
+// 首页项目信息
+export const getProInfo = (params) => {
+  return ajax.get(`/v1/rest/login/getProject?phone=${params}`)
+}
+// 业主项目概况
+export const getOwnerPro = (params) => {
+  return ajax.get(`/v1/rest/project/projectInfo?id=${params}`)
+}
+// 前台业主班组信息
+export const getOwnerTeamInfo = (params) => {
+  return ajax.get(`/v1/rest/team/teamInfo?projectId=${params}`)
+}
+// 设计出图
+export const getDrawing = (params) => {
+  return ajax.get('')
+}
+// 装修周报列表
+export const getWeeklyReportList = (params) => {
+  return ajax.get(`/v1/rest/decoration/getYearAndMonth?projectId=${params}`)
+}
+// 装修周报每周详情
+export const getWeeklyReportDetail = (params) => {
+  return ajax.get(`/v1/rest/decoration/getWeeklyInfo?projectId=${params.projectId}&date=${params.date}`)
+}
+// 装修日报
+export const getDailyReportList = (params) => {
+  return ajax.get('')
+}
+// 装修日报每日详情
+export const getDailyReportdetail = (params) => {
+  return ajax.get('')
+}
+// 出勤情况
+export const getAttendance = (params) => {
+  return ajax.get('')
+}
+//材料追踪
+export const getMaterialTrack = (params) => {
+  return ajax.get(`/v1/rest/material/materialList?projectId=${params}`)
+}
+// 材料追踪详情
+export const getMaterialInfo = (params) => {
+  return ajax.get(`/v1/rest/material/materialInfo?projectId=${params.projectId}&skey=${params.skey}`)
+}
+// 智能办公
+export const getIntelligentOffice = (params) => {
+  return ajax.get('')
+}
+
+
+// 项目经理部分
+// 后台项目经理首页项目
+export const getManagerPro = (params) => {
+  return ajax.get('')
+}
+// 添加日报
+export const postAddDaily = (params) => {
+  return ajax.post('')
+}
+// 查看日报
+export const getAddDaily = (params) => {
+  return ajax.get('')
+}
+// 添加周报
+export const postAddWeekly = (params) => {
+  return ajax.post('')
+}
+// 查看周报列表
+export const getWeeklyList = (params) => {
+  return ajax.get('')
+}
+// 获取周报详情
+export const getWeeklydetail = (params) => {
+  return ajax.get('')
+}
+// 获取材料列表
+export const getMaterial = (params) => {
+  return ajax.get('')
+}
+// 提交材料到货进度
+export const Materialprogress = (params) => {
+  return ajax.post('')
+}
+// 项目概况
+export const getProOverview = (params) => {
+  return ajax.get('')
+}
+// 班组信息
+export const getTeamInfo = (params) => {
+  return ajax.get('')
+}
+// 添加待办事项
+export const postDoList = (params) => {
+  return ajax.post('')
+}
+
+// 设计师部分
+// 后台设计师首页项目
+export const getDesignerPro = (params) => {
+  return ajax.get('')
+}
+// 项目状态
+export const getProstate = (params) => {
+  return ajax.get('')
+}
+// 添加项目状态
+export const postAddProState = (params) => {
+  return ajax.post('')
+}

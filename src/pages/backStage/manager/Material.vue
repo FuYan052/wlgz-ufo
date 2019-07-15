@@ -56,6 +56,9 @@
             </el-dialog>
           </span>
         </h5>
+        <div class="submit" @click="handleSubmit">
+          提交
+        </div>
       </div>
     </div>
   </div>
@@ -71,7 +74,16 @@ export default {
       value1: '',
       dialogImageUrl: '',
       dialogVisible: false,
+      imgs: ''
     }
+  },
+  created() {
+    // this.$http.getMaterial().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
+
+    //   }
+    // })
   },
   methods: {
     dateChange(v) {
@@ -91,7 +103,8 @@ export default {
       this.dialogVisible = true;
     },
     showList(file, fileList) {
-      console.log(fileList)
+      // console.log(fileList)
+      this.imgs = fileList
     },
     changeShow(index) {
       this.isShowDetail = !this.isShowDetail
@@ -101,6 +114,20 @@ export default {
       if(!this.isShowDetail){
         this.j = -1
       }
+    },
+    handleSubmit() {
+      const params = {
+        id: 1001,
+        date: this.value1,
+        imgs: this.imgs
+      }
+      // this.$http.Materialprogress().then(resp => {
+      //   console.log(resp)
+      //   if(resp.status === 200) {
+
+      //   }
+      // })
+      console.log(params)
     }
   }
 }
@@ -127,7 +154,7 @@ export default {
     .m-detail{
       width: 100%;
       height: auto;
-      padding-bottom: 70px;
+      padding-bottom: 50px;
       h5{
         width: 100%;
         font-size: 26px;
@@ -150,6 +177,18 @@ export default {
           margin-top: 37px;
           padding: 30px 20px;
         }
+      }
+      .submit{
+        width: 135px;
+        height: 40px;
+        color: #fff;
+        font-size: 24px;
+        line-height: 40px;;
+        text-align: center;
+        background: #33cc66;
+        border-radius: 6px;
+        margin: 0 auto;
+        margin-top: 50px;
       }
     }
   }

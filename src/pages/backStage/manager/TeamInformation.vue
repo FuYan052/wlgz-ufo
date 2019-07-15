@@ -58,7 +58,20 @@
 
 <script>
 export default {
-  name: 'TeamInformation'
+  name: 'TeamInformation',
+  data() {
+    return {
+      teamInfo: {}
+    }
+  },
+  created() {
+    // this.$http.getTeamInfo().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
+    //     this.teamInfo = resp.data
+    //   }
+    // })
+  }
 }
 </script>
 

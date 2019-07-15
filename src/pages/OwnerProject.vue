@@ -3,39 +3,59 @@
   <div class="ownerProject">
     <ul>
       <li>
-        项目名称：<span>天禧广场</span>
+        项目名称：<span>{{proInfo.projectName}}</span>
       </li>
       <li>
-        负责人：<span>张雨晨</span>
+        负责人：<span>{{proInfo.dutyName}}</span>
       </li>
       <li>
-        手机号：<span>12354624536</span>
+        手机号：<span>{{proInfo.phone}}</span>
       </li>
       <li>
-        项目地区：<span>四川省成都市高新区</span>
+        项目地区：<span>{{proInfo.projectArea}}</span>
       </li>
       <li>
-        详细地址：<span>益州大道555号星辰国际B座1503</span>
+        详细地址：<span>{{proInfo.address}}</span>
       </li>
       <li>
-        投资公司：<span>海洋科技发展有限公司</span>
+        投资公司：<span>{{proInfo.investmentCompany}}</span>
       </li>
       <li>
-        项目面积：<span>243.5㎡</span>
+        项目面积：<span>{{proInfo.region}}㎡</span>
       </li>
       <li>
-        项目工期：<span>2109.10.7-2019.11.30</span>
+        项目工期：<span>{{proInfo.startTime}}至{{proInfo.endTime}}</span>
       </li>
       <li>
-        合同造价：<span>3200,000.00</span>
+        合同造价：<span>{{proInfo.contractCost}}</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'OwnerProject'
+  name: 'OwnerProject',
+  data() {
+    return {
+      proInfo: '',
+      startTime: '',
+      endTime: ''
+    }
+  },
+  computed: {
+    ...mapState(["projectId"]),
+  },
+  created() {
+    this.$http.getOwnerPro(this.projectId).then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        this.proInfo = resp.data
+
+      }
+    })
+  }
 }
 </script>
 

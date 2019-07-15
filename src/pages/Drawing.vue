@@ -161,6 +161,12 @@ export default {
     }
   },
   created() {
+    // this.$http.getDrawing().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
+
+    //   }
+    // })
     this.stateList1 = [
       {
         id: 1,

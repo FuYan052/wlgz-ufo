@@ -32,7 +32,7 @@
         <img preview="3" width="100%" :src="dialogImageUrl" alt="">
       </el-dialog>
     </div>
-    <div class="submitBtn">
+    <div class="submitBtn" @click="submitWeekly">
       提交
     </div>
   </div>
@@ -87,6 +87,15 @@ export default {
       this.weeklyText2 = childValue
       // console.log('综合评价：'+ this.weeklyText2)
     },
+    // 提交周报
+    submitWeekly() {
+      this.$http.postAddWeekly().then(resp => {
+        console.log(resp)
+        if(resp.status === 200) {
+          
+        }
+      })
+    }
   }
 }
 </script>

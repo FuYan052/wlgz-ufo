@@ -30,6 +30,14 @@ export default {
       j: -1
     }
   },
+  created() {
+    // this.$http.getDailyReport().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
+
+    //   }
+    // })
+  },
   methods: {
     changeDailyShow(index) {
       this.isShowDaily = !this.isShowDaily

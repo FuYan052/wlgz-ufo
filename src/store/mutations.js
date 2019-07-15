@@ -5,7 +5,13 @@ export default {
   changeType(state, status) {
     state.type = status;
   },
+  changeUserPhone(state, status) {
+    state.userPhone = status;
+  },
   changeToken(state, status) {
+    state.token = status;
+  },
+  changeProjectId(state, status) {
     state.token = status;
   },
 }

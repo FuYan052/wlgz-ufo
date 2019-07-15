@@ -21,7 +21,7 @@
         <img preview="1" width="100%" :src="dialogImageUrl" alt="">
       </el-dialog>
     </div>
-    <div class="submitBtn">
+    <div class="submitBtn" @click="submitDaily">
       提交
     </div>
   </div>
@@ -39,6 +39,7 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       dailyText: '',
+      imgList: ''
     }
   },
   methods: {
@@ -56,11 +57,24 @@ export default {
       this.dialogVisible = true;
     },
     showList(file, fileList) {
-      console.log(fileList)
+      // console.log(fileList)
+      this.imgList = fileList
     },
     childByValue(childValue) {
       this.dailyText = childValue
       // console.log(this.dailyText)
+    },
+    submitDaily() {
+      const params = {
+        dailyText: this.dailyText,
+        imgList: this.imgList
+      }
+      // this.$http.postAddDaily().then(resp => {
+      //   if(resp.status === 200) {
+
+      //   }
+      // })
+      console.log(params)
     }
   }
 }

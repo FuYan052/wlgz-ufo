@@ -67,6 +67,14 @@ export default {
       }
     }
   },
+  created() {
+    this.$http.getAddWeekly().then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        
+      }
+    })
+  },
   methods: {
     changeCheckShow(index) {
       this.isCheckShow = !this.isCheckShow

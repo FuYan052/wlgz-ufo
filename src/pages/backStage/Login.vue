@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['changeLoginStatus','changeType','changeToken']),
+    ...mapMutations(['changeLoginStatus','changeType','changeUserPhone','changeToken']),
     handleLogin () {
       const params = {
         phoneNum: this.phoneNum,
@@ -51,9 +51,11 @@ export default {
         console.log(resp)
         if(resp.status === 200) {
           window.localStorage.setItem('type', resp.data.type)
+          window.localStorage.setItem('userPhone', resp.data.phone)
           window.localStorage.setItem('ufo-token', resp.data.token)
           this.changeType(resp.data.type)
           this.changeLoginStatus(true)
+          this.changeUserPhone(resp.data.phone)
           this.changeToken(resp.data.token)
           this.$router.push({
             path: '/backstageHome', 
@@ -62,6 +64,9 @@ export default {
               type: resp.data.type
             }
           })
+        }
+        if(resp.status === 201) {
+          this.$message('用户名或密码错误！')
         }
       })
       // this.$http.postLogin()

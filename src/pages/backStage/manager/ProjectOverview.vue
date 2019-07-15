@@ -35,7 +35,20 @@
 
 <script>
 export default {
-  name: 'ProjectOverview'
+  name: 'ProjectOverview',
+  data() {
+    return {
+      proOverview: {}
+    }
+  },
+  created() {
+    // this.$http.getProOverview().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
+    //     this.proOverview = resp.data
+    //   }
+    // })
+  }
 }
 </script>
 

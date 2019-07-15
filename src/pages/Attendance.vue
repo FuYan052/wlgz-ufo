@@ -1,5 +1,5 @@
 <template>
-  <!-- 装修日志 -->
+  <!-- 考勤情况 -->
   <div class="attendance" v-title data-title="出勤情况">
     <div v-for="(item,index) in 4" :key="index">
       <div class="a-title" @click="changeDailyShow(index)">
@@ -35,6 +35,14 @@ export default {
       isShowAttendance: false,
       i: -1
     }
+  },
+  created() {
+    // this.$http.getAttendance().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200){
+
+    //   }
+    // })
   },
   methods: {
     changeDailyShow(index) {

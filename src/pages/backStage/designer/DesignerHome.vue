@@ -37,6 +37,14 @@ export default {
       isDown2: false,  //控制箭头方向
     }
   },
+  created() {
+    // this.$http.getDesignerPro().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
+
+    //   }
+    // })
+  },
   methods: {
     showCurrPro() {
       this.isShowCurrPro = !this.isShowCurrPro

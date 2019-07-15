@@ -205,6 +205,9 @@ export default {
     submit() {
       this.centerDialogVisible = false
       console.log(this.stateResult)
+      this.$http.postAddProState().then(resp => {
+        console.log(resp)
+      })
     }
   }
 }

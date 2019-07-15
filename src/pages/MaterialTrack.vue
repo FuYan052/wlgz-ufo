@@ -1,32 +1,32 @@
 <template>
   <!-- 材料追踪 -->
   <div class="materialTrack" v-title data-title="材料追踪">
-    <div v-for="(item,index) in 4" :key="index" v-show="hasProject">
-      <h4 class="m-title" @click="changeShow(index)">
-        实木地板<span><b class="el-icon-arrow-right" v-show="index !== j"></b><b v-show="index === j" class="el-icon-arrow-down"></b></span>
+    <div v-for="(item,index) in materialList" :key="index" v-show="hasProject">
+      <h4 class="m-title" @click="changeShow(item,index)">
+        {{item.name}}<span><b class="el-icon-arrow-right" v-show="index !== j"></b><b v-show="index === j" class="el-icon-arrow-down"></b></span>
       </h4>
       <div class="m-detail" v-show="index === j">
         <h5>
-          品牌规格：<span>圣象面漆地板900*80*18（富彬牌）</span>
+          品牌规格：<span>{{detail.brandSpecification}}</span>
         </h5>
         <h5>
-          单位：<span>㎡</span>
+          单位：<span>{{detail.company}}</span>
         </h5>
         <h5>
-          数量：<span>31.3</span>
+          数量：<span>{{detail.number}}</span>
         </h5>
         <h5>
-          单价：<span>787元</span>
+          单价：<span>{{detail.unitPrice}}元</span>
         </h5>
         <h5>
-          总价：<span>24633.1元</span>
+          总价：<span>{{detail.totalPrice}}元</span>
         </h5>
         <h5>
-          所用部位：<span>总裁办公室</span>
+          所用部位：<span>{{detail.locationUsed}}</span>
         </h5>
         <h5>
           到货时间：<span class="date">
-            2018-08-16
+            {{detail.arrivalTime}}
           </span>
         </h5>
         <h5>
@@ -58,20 +58,44 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'MaterialTrack',
   data() {
     return {
       isShowDetail: false,
       j: -1,
-      hasProject: false
+      hasProject: true,
+      materialList: '',
+      detail: ''
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
+  created() {
+    this.$http.getMaterialTrack(this.projectId).then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        this.materialList = resp.data
+      }
+    })
+  },
   methods: {
-    changeShow(index) {
+    changeShow(item,index) {
+      const params = {
+        projectId: this.projectId,
+        skey: item.skey
+      }
       this.isShowDetail = !this.isShowDetail
       if(this.isShowDetail){
         this.j = index
+        this.$http.getMaterialInfo(params).then(resp => {
+          // console.log(resp)
+          if(resp.status === 200) {
+            this.detail = resp.data
+          }
+        })
       }
       if(!this.isShowDetail){
         this.j = -1

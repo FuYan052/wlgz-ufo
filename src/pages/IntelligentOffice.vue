@@ -1,4 +1,5 @@
 <template>
+  <!-- 智能办公 -->
   <div class="intelligentOffice" v-title data-title="智能办公">
     <ul>
       <li v-for="(item,index) in 4" :key="index">
@@ -12,10 +13,23 @@
 
 <script>
 export default {
-  name: 'IntelligentOffice'
+  name: 'IntelligentOffice',
+  data() {
+    return {
+      list: ''
+    }
+  },
+  created() {
+    // this.$http.getIntelligentOffice().then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
+    //     this.list = resp.data
+    //   }
+    // })
+  }
 }
 </script>
-
+            
 <style lang="scss" scoped>
   .intelligentOffice{
     width: 100%;

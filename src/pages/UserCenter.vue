@@ -12,7 +12,7 @@
         <span @click="toLogin">登录</span>
       </div>
       <!-- 登录之后显示当前项目 -->
-      <el-select v-model="value" v-show="isLogin">
+      <el-select v-model="value" v-show="isLogin" @change="changeProject">
         <el-option
           v-for="item in projectList"
           :key="item.id"
@@ -57,6 +57,7 @@
 
 <script>
 import { mapState } from "vuex"
+import { mapMutations } from "vuex"
 export default {
   name: 'UserCenter',
   data() {
@@ -64,26 +65,26 @@ export default {
       userName: '小丸子',
       centerDialogVisible: false,
       value: '选择项目',
-      projectList: [
-        {
-          id: 1,
-          name: '项目1'
-        },
-        {
-          id: 2,
-          name: '项目2'
-        },
-        {
-          id: 3,
-          name: '项目3'
-        },
-      ]
+      projectList: []
     }
   },
   computed: {
-    ...mapState(["isLogin"]),
+    ...mapState(["isLogin","userPhone","projectId"]),
+  },
+  created() {
+    this.$http.getProInfo(this.userPhone).then(resp => {
+      // console.log(resp)
+      if(resp.status === 200) {
+        this.projectList = resp.data
+        this.value = this.projectList[0].name
+        window.localStorage.setItem('projectId',this.projectList[0].projectId)
+      }
+      console.log(this.projectList)
+    })
   },
   methods: {
+    ...mapMutations(['changeProjectId']),
+
     changeProject(e) {
       console.log(e)
       // this.currProject = project.name

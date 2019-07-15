@@ -1,9 +1,9 @@
 <template>
   <!-- 装修周报 -->
   <div class="weeklyReport" v-title data-title="装修周报">
-    <div v-for="(item,index) in 4" :key="index">
-      <div class="w-title" @click="changeShow(index)">
-        201904第一周<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
+    <div v-for="(item,index) in weeklyReportList" :key="index">
+      <div class="w-title" @click="changeShow(item,index)">
+        {{item}}<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="w-detail" v-show="index === i">
         <p class="p p1">装修情况:</p>
@@ -39,6 +39,7 @@
 
 <script>
 import VueChart from 'vuechart';
+import { mapState } from 'vuex'
 export default {
   name: 'WeeklyReport',
   components: {
@@ -48,6 +49,7 @@ export default {
     return {
       isShow: false,
       i: -1,
+      weeklyReportList: '',
       percentage: 30,
       customColors: [
         {color: '#f22e2e', percentage: 40},
@@ -67,11 +69,29 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
+  created() {
+    this.$http.getWeeklyReportList(this.projectId).then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        this.weeklyReportList = resp.data
+      }
+    })
+  },
   methods: {
-    changeShow(index) {
+    changeShow(item,index) {
+      const params = {
+        projectId: this.projectId,
+        date: item
+      }
       this.isShow = !this.isShow
       if(this.isShow){
         this.i = index
+        this.$http.getWeeklyReportDetail(params).then(resp => {
+          console.log(resp)
+        })
       }
       if(!this.isShow){
         this.i = -1

@@ -4,7 +4,7 @@
     <div class="addTeaxarea">
       <text-area  v-on:childByValue="childByValue"></text-area>
     </div>
-    <div class="submitBtn">
+    <div class="submitBtn" @click="submitDoList">
       提交
     </div>
   </div>
@@ -26,6 +26,13 @@ export default {
     childByValue(childValue) {
       this.toDoText = childValue
       console.log(this.toDoText)
+    },
+    submitDoList() {
+      console.log(this.toDoText)
+      // this.$http.postDoList().then(resp => {
+      //   console.log(resp)
+
+      // })
     }
   }
 }

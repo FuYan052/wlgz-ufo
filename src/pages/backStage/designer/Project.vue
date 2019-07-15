@@ -103,8 +103,9 @@ export default {
     }
   },
   created() {
-
-    console.log(new Date())
+    // this.$http.getProstate().then(resp => {
+    //   console.log(resp)
+    // })
 
     this.stateList1 = [
       {
