@@ -38,12 +38,12 @@ export default {
     }
   },
   created() {
-    this.$http.getManagerPro.then(resp => {
-      console.log(resp)
-      if(resp.status === 200) {
+    // this.$http.getManagerPro.then(resp => {
+    //   console.log(resp)
+    //   if(resp.status === 200) {
 
-      }
-    })
+    //   }
+    // })
   },
   methods: {
     showCurrPro() {

@@ -1,24 +1,24 @@
 <template>
   <!-- 考勤情况 -->
   <div class="attendance" v-title data-title="出勤情况">
-    <div v-for="(item,index) in 4" :key="index">
-      <div class="a-title" @click="changeDailyShow(index)">
-        20190405<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
+    <div v-for="(item,index) in attenList" :key="index">
+      <div class="a-title" @click="changeDailyShow(item,index)">
+        {{item}}<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="a-detail" v-show="index === i">
-        <div class="item" v-for="(it,ind) in 3" :key="ind">
+        <div class="item" v-for="(it,ind) in attenDetail" :key="ind">
           <div class="leftImg">
             <img preview="2" src="../assets/touxiang.jpg" alt="">
           </div>
           <div class="right">
             <p>
-              工&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：<span>电工</span>
+              工&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：<span>{{it.type}}</span>
             </p>
             <p>
-              进场时间：<span>08:48:24</span>
+              进场时间：<span>{{it.approachTime}}</span>
             </p>
             <p>
-              出场时间：<span>17:39:24</span>
+              出场时间：<span>{{it.appearanceTime}}</span>
             </p>
           </div>
         </div>
@@ -28,30 +28,48 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Attendance',
   data() {
     return {
       isShowAttendance: false,
-      i: -1
+      i: -1,
+      attenList: '',  //考勤列表
+      attenDetail: ''
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
   created() {
-    // this.$http.getAttendance().then(resp => {
-    //   console.log(resp)
-    //   if(resp.status === 200){
-
-    //   }
-    // })
+    this.$http.getAttendance(this.projectId).then(resp => {
+      console.log(resp)
+      if(resp.status === 200){
+        this.attenList = resp.data
+      }
+    })
   },
   methods: {
-    changeDailyShow(index) {
+    changeDailyShow(item,index) {
       this.isShowAttendance = !this.isShowAttendance
+      const params = {
+        projectId: this.projectId,
+        date: item
+      }
       if(this.isShowAttendance){
         this.i = index
+        // 获取考勤详情
+        this.$http.getAttendanceDetail(params).then(resp => {
+          console.log(resp)
+          if(resp.status === 200) {
+            this.attenDetail = resp.data
+          }
+        })
       }
       if(!this.isShowAttendance){
         this.i = -1
+        this.attenDetail = ''
       }
     }
   }

@@ -1,14 +1,14 @@
 <template>
   <!-- 装修日志 -->
   <div class="dailyReport" v-title data-title="装修日志">
-    <div v-for="(item,index) in 4" :key="index">
-      <div class="d-title" @click="changeDailyShow(index)">
-        20190405<span><i class="el-icon-arrow-right" v-show="index !== j"></i><i v-show="index === j" class="el-icon-arrow-down"></i></span>
+    <div v-for="(item,index) in dailyReportList" :key="index">
+      <div class="d-title" @click="changeDailyShow(item,index)">
+        {{item}}<span><i class="el-icon-arrow-right" v-show="index !== j"></i><i v-show="index === j" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="d-detail" v-show="index === j">
         <h5>施工内容：</h5>
         <div class="content">
-          施工内容施内容施工内容施工内容施工内容施工内容施工内容施工内容施工内容施工内容
+          {{dailyReportDetail.content}}
         </div>
         <h5>施工现场：</h5>
         <div class="imgBox">
@@ -22,30 +22,49 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'DailyReport',
   data() {
     return {
       isShowDaily: false,
-      j: -1
+      j: -1,
+      dailyReportList: '',
+      dailyReportDetail: ''
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
   created() {
-    // this.$http.getDailyReport().then(resp => {
-    //   console.log(resp)
-    //   if(resp.status === 200) {
-
-    //   }
-    // })
+    // 获取日报列表
+    this.$http.getDailyReportList(this.projectId).then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        this.dailyReportList = resp.data
+      }
+    })
   },
   methods: {
-    changeDailyShow(index) {
+    changeDailyShow(item,index) {
       this.isShowDaily = !this.isShowDaily
+      const params = {
+        projectId: this.projectId,
+        date: item
+      }
       if(this.isShowDaily){
         this.j = index
+        // 获取日报详情
+        this.$http.getDailyReportdetail(params).then(resp => {
+          console.log(resp)
+          if(resp.status === 200) {
+            this.dailyReportDetail = resp.data
+          }
+        })
       }
       if(!this.isShowDaily){
         this.j = -1
+        this.dailyReportDetail = ''
       }
     }
   }

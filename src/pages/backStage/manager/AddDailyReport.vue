@@ -7,13 +7,16 @@
     <div class="title2">现场照片:</div>
     <div class="picBox">
       <el-upload
-        action="https://jsonplaceholder.typicode.com/posts/"
+        name="file"
+        action="none"
         list-type="picture-card"
         :limit='8'
         :multiple='true'
         :on-change="showList"
         :on-exceed="overLimit"
         :on-preview="handlePictureCardPreview"
+        ref="upload"
+        :http-request="uploadSectionFile"
         :on-remove="handleRemove">
         <i class="el-icon-plus"></i>
       </el-upload>
@@ -43,6 +46,19 @@ export default {
     }
   },
   methods: {
+    uploadSectionFile(params) {
+      console.log(params)
+      const file = params.file
+      const form = new FormData();
+      // 文件对象
+      form.append("file", file);
+      console.log(form)
+      console.log(file)
+      this.$http.postUpolad(form).then(resp => {
+        console.log(resp)
+      })
+    },
+
     overLimit(file, fileList) {
       this.$message({
           message: '最多上传8张',

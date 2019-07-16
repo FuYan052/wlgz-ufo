@@ -2,10 +2,10 @@
   <!-- 智能办公 -->
   <div class="intelligentOffice" v-title data-title="智能办公">
     <ul>
-      <li v-for="(item,index) in 4" :key="index">
+      <li v-for="(item,index) in list" :key="index">
         <img preview="9" src="../assets/touxiang.jpg" alt="">
-        <p>小米打印机</p>
-        <p>￥499</p>
+        <p>{{item.name}}</p>
+        <p>￥{{item.price}}</p>
       </li>
     </ul>
   </div>
@@ -20,12 +20,12 @@ export default {
     }
   },
   created() {
-    // this.$http.getIntelligentOffice().then(resp => {
-    //   console.log(resp)
-    //   if(resp.status === 200) {
-    //     this.list = resp.data
-    //   }
-    // })
+    this.$http.getIntelligentOffice().then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        this.list = resp.data
+      }
+    })
   }
 }
 </script>
