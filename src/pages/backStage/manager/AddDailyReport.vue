@@ -12,6 +12,7 @@
         list-type="picture-card"
         :limit='8'
         :multiple='true'
+        :auto-upload="false"
         :on-change="showList"
         :on-exceed="overLimit"
         :on-preview="handlePictureCardPreview"
@@ -32,6 +33,7 @@
 
 <script>
 import TextArea from '../../../components/TextArea'
+import { mapState } from "vuex"
 export default {
   name: 'AddDailyReport',
   components: {
@@ -42,28 +44,23 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       dailyText: '',
-      imgList: ''
+      imgList: '',
+      imgListUrl: '',
+      formData: '',
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
   methods: {
-    uploadSectionFile(params) {
-      console.log(params)
-      const file = params.file
-      const form = new FormData();
-      // 文件对象
-      form.append("file", file);
-      console.log(form)
-      console.log(file)
-      this.$http.postUpolad(form).then(resp => {
-        console.log(resp)
-      })
+    uploadSectionFile(file) {
+      this.formData.append('file', file.file);
     },
-
     overLimit(file, fileList) {
       this.$message({
-          message: '最多上传8张',
-          type: 'warning'
-        });
+        message: '最多上传8张',
+        type: 'warning'
+      });
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -81,16 +78,32 @@ export default {
       // console.log(this.dailyText)
     },
     submitDaily() {
-      const params = {
-        dailyText: this.dailyText,
-        imgList: this.imgList
-      }
-      // this.$http.postAddDaily().then(resp => {
-      //   if(resp.status === 200) {
+      // 上传图片
+      this.formData = new FormData()
+      this.$refs.upload.submit();
+      this.$http.postUpolad(this.formData).then(resp => {
+        console.log(resp)
+        if(resp.status === 200){
+          this.imgListUrl = resp.data.data
+          // 提交文本内容
+          const params = JSON.stringify({
+            projectId: this.projectId,
+            content: this.dailyText,
+            images: this.imgListUrl,
+          })
+          this.$http.postAddDaily(params).then(resp => {
+            console.log(resp)
+            if(resp.status === 200) {
 
-      //   }
-      // })
-      console.log(params)
+            }
+          })
+        }else{
+          this.$message({
+            message: '上传失败，请重试！',
+            type: 'warning'
+          });
+        }
+      })
     }
   }
 }

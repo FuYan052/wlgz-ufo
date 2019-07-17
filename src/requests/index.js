@@ -10,7 +10,13 @@ const ajax2 = axios.create({
   baseURL: 'http://192.168.0.122:9000/',
   headers: {
     'Content-Type':'multipart/form-data'
-    // 'Content-Type':'image/jpeg'
+  },
+})
+const ajax3 = axios.create({
+  baseURL: 'http://192.168.0.122:9000/',
+  headers: {
+    'Content-Type': "application/json;charset=UTF-8",
+    'token': localStorage.getItem('ufo-token')
   },
 })
 
@@ -150,39 +156,43 @@ export const postUpolad = (params) => {
 }
 // 添加日报
 export const postAddDaily = (params) => {
-  return ajax.post(``)
+  return ajax3.post('/v1/rest/decoration/addDaily',params)
 }
-// 查看日报
-export const getAddDaily = (params) => {
-  return ajax.get(``)
+// 查看日报列表
+export const getAddDailyList = (params) => {
+  return ajax.get(`/v1/rest/decoration/getYearAndMonthAndDate?projectId=${params}`)
+}
+// 查看日报详情
+export const getAddDailyDetail = (params) => {
+  return ajax.get(`/v1/rest/decoration/getDailyInfo?projectId=${params.projectId}&date=${params.date}`)
 }
 // 添加周报
 export const postAddWeekly = (params) => {
-  return ajax.post(``)
+  return ajax3.post('/v1/rest/decoration/addWeekly',params)
 }
 // 查看周报列表
 export const getWeeklyList = (params) => {
-  return ajax.get(``)
+  return ajax.get(`/v1/rest/decoration/getYearAndMonth?projectId=${params}`)
 }
 // 获取周报详情
 export const getWeeklydetail = (params) => {
-  return ajax.get(``)
+  return ajax.get(`/v1/rest/decoration/getWeeklyInfo?projectId=${params.projectId}&date=${params.date}`)
 }
 // 获取材料列表
 export const getMaterial = (params) => {
-  return ajax.get(``)
+  return ajax.get(`/v1/rest/material/materialList?projectId=${params}`)
 }
 // 提交材料到货进度
 export const Materialprogress = (params) => {
-  return ajax.post(``)
+  return ajax.post(`/v1/rest/material/materialInfo?projectId=${params.projectId}&skey=${params.skey}`)
 }
 // 项目概况
 export const getProOverview = (params) => {
-  return ajax.get(``)
+  return ajax.get(`/v1/rest/project/projectInfo?id=${params}`)
 }
 // 班组信息
 export const getTeamInfo = (params) => {
-  return ajax.get(``)
+  return ajax.get(`/v1/rest/team/teamInfo?projectId=${params}`)
 }
 // 添加待办事项
 export const postDoList = (params) => {

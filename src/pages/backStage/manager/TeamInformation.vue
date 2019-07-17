@@ -4,52 +4,52 @@
     <ul class="wrap1">
       <li>
         <h4>
-          项目负责人：<span>何玉华</span>
+          项目负责人：<span>{{teamInfo.project.dutyName}}</span>
         </h4>
         <h4>
-          电话号码：<span>15324654232</span>
-        </h4>
-      </li>
-      <li>
-        <h4>
-          设计：<span>何玉华</span>
-        </h4>
-        <h4>
-          电话号码：<span>15243642655</span>
+          电话号码：<span>{{teamInfo.project.phone}}</span>
         </h4>
       </li>
       <li>
         <h4>
-          采购员：<span>何玉华</span>
+          设计：<span>{{teamInfo.designer.name}}</span>
         </h4>
         <h4>
-          电话号码：<span>15463258453</span>
+          电话号码：<span>{{teamInfo.designer.phone}}</span>
+        </h4>
+      </li>
+      <li>
+        <h4>
+          采购员：<span>{{teamInfo.buyer.name}}</span>
+        </h4>
+        <h4>
+          电话号码：<span>{{teamInfo.buyer.phone}}</span>
         </h4>
       </li>
     </ul>
     <ul class="wrap2">
       <li>
         <h5>木工组</h5>
-        <h6 v-for="(item,index) in 3" :key="index">
-          工人{{index+1}}<span>张三</span>
+        <h6 v-for="(item,index) in teamInfo.team1" :key="index">
+          工人{{index+1}}<span>{{item.name}}</span>
         </h6>
       </li>
       <li>
         <h5>泥水组</h5>
-        <h6 v-for="(item,index) in 3" :key="index">
-          工人{{index+1}}<span>张三</span>
+        <h6 v-for="(item,index) in teamInfo.team2" :key="index">
+          工人{{index+1}}<span>{{item.name}}</span>
         </h6>
       </li>
       <li>
         <h5>油漆组</h5>
-        <h6 v-for="(item,index) in 3" :key="index">
-          工人{{index+1}}<span>张三</span>
+        <h6 v-for="(item,index) in teamInfo.team4" :key="index">
+          工人{{index+1}}<span>{{item.name}}</span>
         </h6>
       </li>
       <li>
         <h5>电工组</h5>
-        <h6 v-for="(item,index) in 3" :key="index">
-          工人{{index+1}}<span>张三</span>
+        <h6 v-for="(item,index) in teamInfo.team4" :key="index">
+          工人{{index+1}}<span>{{item.name}}</span>
         </h6>
       </li>
     </ul>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'TeamInformation',
   data() {
@@ -64,13 +65,16 @@ export default {
       teamInfo: {}
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
   created() {
-    // this.$http.getTeamInfo().then(resp => {
-    //   console.log(resp)
-    //   if(resp.status === 200) {
-    //     this.teamInfo = resp.data
-    //   }
-    // })
+    this.$http.getTeamInfo(this.projectId).then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        this.teamInfo = resp.data
+      }
+    })
   }
 }
 </script>

@@ -3,51 +3,57 @@
   <div class="projectOverview">
     <ul>
       <li>
-        项目名称：<span>天禧广场</span>
+        项目名称：<span>{{proOverview.projectName}}</span>
       </li>
       <li>
-        负责人：<span>张雨晨</span>
+        负责人：<span>{{proOverview.dutyName}}</span>
       </li>
       <li>
-        手机号：<span>12354624536</span>
+        手机号：<span>{{proOverview.phone}}</span>
       </li>
       <li>
-        项目地区：<span>四川省成都市高新区</span>
+        项目地区：<span>{{proOverview.projectArea}}</span>
       </li>
       <li>
-        详细地址：<span>益州大道555号星辰国际B座1503</span>
+        详细地址：<span>{{proOverview.address}}</span>
       </li>
       <li>
-        投资公司：<span>海洋科技发展有限公司</span>
+        投资公司：<span>{{proOverview.investmentCompany}}</span>
       </li>
       <li>
-        项目面积：<span>243.5㎡</span>
+        项目面积：<span>{{proOverview.region}}㎡</span>
       </li>
       <li>
-        项目工期：<span>2109.10.7-2019.11.30</span>
+        项目工期：<span>{{proOverview.startTime}}至{{proOverview.endTime}}</span>
       </li>
       <li>
-        合同造价：<span>3200,000.00</span>
+        合同造价：<span>{{proOverview.contractCost}}</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'ProjectOverview',
   data() {
     return {
-      proOverview: {}
+      proOverview: {},
+      // startTime: '',
+      // endTime: ''
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
   created() {
-    // this.$http.getProOverview().then(resp => {
-    //   console.log(resp)
-    //   if(resp.status === 200) {
-    //     this.proOverview = resp.data
-    //   }
-    // })
+    this.$http.getProOverview(this.projectId).then(resp => {
+      console.log(resp)
+      if(resp.status === 200) {
+        this.proOverview = resp.data
+      }
+    })
   }
 }
 </script>

@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       proInfo: '',
-      startTime: '',
-      endTime: ''
+      // startTime: '',
+      // endTime: ''
     }
   },
   computed: {
@@ -52,7 +52,6 @@ export default {
       console.log(resp)
       if(resp.status === 200) {
         this.proInfo = resp.data
-
       }
     })
   }

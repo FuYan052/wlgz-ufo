@@ -18,13 +18,16 @@
     <div class="title4">现场照片:</div>
     <div class="picBox">
       <el-upload
-        action="https://jsonplaceholder.typicode.com/posts/"
+        action="none"
         list-type="picture-card"
         :limit='8'
         :multiple='true'
         :on-change="showList"
         :on-exceed="overLimit"
         :on-preview="handlePictureCardPreview"
+        :auto-upload="false"
+        ref="upload"
+        :http-request="uploadSectionFile"
         :on-remove="handleRemove">
         <i class="el-icon-plus"></i>
       </el-upload>
@@ -40,6 +43,7 @@
 
 <script>
 import TextArea from '../../../components/TextArea'
+import { mapState } from "vuex"
 export default {
   name: 'AddWeeklyReport',
   components: {
@@ -51,6 +55,8 @@ export default {
       weeklyText2: '',
       dialogImageUrl: '',
       dialogVisible: false,
+      imgListUrl: '',
+      formData: '',
       percentage: 30,
       customColors: [
         {color: '#f22e2e', percentage: 40},
@@ -59,10 +65,16 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
   created() {
     // console.log($)
   },
   methods: {
+    uploadSectionFile(file) {
+      this.formData.append('file', file.file);
+    },
     overLimit(file, fileList) {
       this.$message({
           message: '最多上传8张',
@@ -77,7 +89,7 @@ export default {
       this.dialogVisible = true;
     },
     showList(file, fileList) {
-      console.log(fileList)
+      // console.log(fileList)
     },
     childByValue1(childValue) {
       this.weeklyText1 = childValue
@@ -89,13 +101,41 @@ export default {
     },
     // 提交周报
     submitWeekly() {
-      this.$http.postAddWeekly().then(resp => {
+      // 上传图片
+      this.formData = new FormData()
+      this.$refs.upload.submit();
+      this.$http.postUpolad(this.formData).then(resp => {
         console.log(resp)
-        if(resp.status === 200) {
-          
+        if(resp.status === 200){
+          this.imgListUrl = resp.data.data
+          // 提交文本内容
+          const params = JSON.stringify({
+            projectId: this.projectId,
+            content: this.weeklyText1,
+            completionRate: Number(this.percentage),
+            overallEvaluate: this.weeklyText2,
+            images: this.imgListUrl,
+          })
+          this.$http.postAddWeekly(params).then(resp => {
+            console.log(resp)
+            if(resp.status === 200) {
+
+            }
+          })
+        }else{
+          this.$message({
+            message: '上传失败，请重试！',
+            type: 'warning'
+          });
         }
       })
     }
+      // this.$http.postAddWeekly().then(resp => {
+      //   console.log(resp)
+      //   if(resp.status === 200) {
+          
+      //   }
+      // })
   }
 }
 </script>

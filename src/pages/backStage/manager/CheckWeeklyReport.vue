@@ -1,19 +1,18 @@
 <template>
   <div class="checkWeeklyReport">
-    <div v-for="(item,index) in 4" :key="index">
-      <div class="w-title" @click="changeCheckShow(index)">
-        201904第一周<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
+    <div v-for="(item,index) in weeklyList" :key="index">
+      <div class="w-title" @click="changeCheckShow(item,index)">
+        {{item}}<span><i class="el-icon-arrow-right" v-show="index !== i"></i><i v-show="index === i" class="el-icon-arrow-down"></i></span>
       </div>
       <div class="w-detail" v-show="index === i">
         <p class="p p1">装修情况:</p>
-        <div class="p1-detail">水电改造已经完成，墙面清楚完成</div>
+        <div class="p1-detail">{{weeklyDetail.content}}</div>
         <p class="p p2">完成百分比:</p>
         <div class="p2-detail">
           <el-progress :percentage="percentage" :color="customColors"></el-progress>
         </div>
         <p class="p p3">出勤情况:</p>
         <div id="main" class="p3-detail">
-          <!-- 总出勤人数：{{10}}人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总出勤工时：{{28}}人<span>/</span>日 -->
           <vue-chart
             class="chart"
             type="bar"
@@ -24,7 +23,7 @@
         </div>
         <p class="p p4">综合评分:</p>
         <div class="p4-detail">
-          总体进展正常
+          {{weeklyDetail.overallEvaluate}}
         </div>
         <p class="p p5">现场图:</p>
         <div class="p5-detail">
@@ -39,6 +38,7 @@
 
 <script>
 import VueChart from 'vuechart';
+import { mapState } from 'vuex'
 export default {
   name: 'CheckWeeklyReport',
   components: {
@@ -49,6 +49,8 @@ export default {
       isCheckShow: false,
       i: -1,
       percentage: 30,
+      weeklyList: '',
+      weeklyDetail: '',
       customColors: [
         {color: '#f22e2e', percentage: 40},
         {color: '#e6a23c', percentage: 80},
@@ -67,22 +69,42 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(["projectId"]),
+  },
   created() {
-    this.$http.getAddWeekly().then(resp => {
+    this.$http.getWeeklyList(this.projectId).then(resp => {
       console.log(resp)
       if(resp.status === 200) {
-        
+        this.weeklyList = resp.data
       }
     })
   },
   methods: {
-    changeCheckShow(index) {
+    changeCheckShow(item,index) {
       this.isCheckShow = !this.isCheckShow
+      const params = {
+        projectId: this.projectId,
+        date: item
+      }
       if(this.isCheckShow){
         this.i = index
+        this.$http.getWeeklydetail(params).then(resp => {
+          console.log(resp)
+          this.weeklyDetail = resp.data
+          this.percentage = Number(resp.data.completionRate)
+          this.chartData.labels = []
+          this.chartData.datasets[0].data = []
+          const list = resp.data.attendance
+          for(let i=0;i<list.length;i++){
+            this.chartData.labels.push(list[i].dailyTime)
+            this.chartData.datasets[0].data.push(list[i].people)
+          }
+        })
       }
       if(!this.isCheckShow){
         this.i = -1
+        this.weeklyDetail = ''
       }
     }
   }
